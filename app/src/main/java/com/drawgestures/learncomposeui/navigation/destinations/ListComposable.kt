@@ -5,17 +5,18 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.drawgestures.learncomposeui.ui.screens.list.ListScreen
+import com.drawgestures.learncomposeui.ui.viewmodels.SharedViewModel
 import com.drawgestures.learncomposeui.util.Constants.LIST_ARG_KEY
 import com.drawgestures.learncomposeui.util.Constants.LIST_SCREEN
 
 
-fun NavGraphBuilder.listComposable(navigateToTaskScreen : (Int) -> Unit){
+fun NavGraphBuilder.listComposable(sharedViewModel: SharedViewModel, navigateToTaskScreen : (Int) -> Unit){
     composable(
         route = LIST_SCREEN,
         arguments = listOf(navArgument(LIST_ARG_KEY){
             type = NavType.StringType
         }),
     ){
-        ListScreen(navigateToTaskScreen = navigateToTaskScreen)
+        ListScreen(sharedViewModel = sharedViewModel, navigateToTaskScreen = navigateToTaskScreen)
     }
 }
