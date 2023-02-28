@@ -19,7 +19,7 @@ interface ToDoDao {
     fun search(query : String) : Flow<List<ToDoTask>>
 
     @Query("SELECT * FROM ${Constants.DATABASE_TABLE} WHERE id=:id")
-    fun getById(id : Long) : Flow<ToDoTask>
+    fun getById(id : Int) : Flow<ToDoTask>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun create(task: ToDoTask)

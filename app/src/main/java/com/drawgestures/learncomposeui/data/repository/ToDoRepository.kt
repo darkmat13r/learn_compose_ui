@@ -10,7 +10,7 @@ class ToDoRepository (private val toDoDao: ToDoDao){
     val sortByLowPriority : Flow<List<ToDoTask>> = toDoDao.sortByLowPriority()
     val sortByHighPriority : Flow<List<ToDoTask>> = toDoDao.sortByHighPriority()
 
-    fun getSelectedTask(taskId : Long) : Flow<ToDoTask>{
+    fun getSelectedTask(taskId : Int) : Flow<ToDoTask>{
         return toDoDao.getById(taskId)
     }
 
