@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Surface
 import androidx.compose.material3.MaterialTheme
@@ -27,9 +28,25 @@ import com.drawgestures.learncomposeui.data.models.ToDoTask
 import com.drawgestures.learncomposeui.ui.theme.LARGE_PADDING
 import com.drawgestures.learncomposeui.ui.theme.PRIORITY_INDICATOR_SIZE
 import com.drawgestures.learncomposeui.ui.theme.TASK_ITEM_ELEVATION
+import com.drawgestures.learncomposeui.util.RequestState
 
 @Composable
-fun ListContent(tasks: List<ToDoTask>, navigateToTaskScreen: (taskId: Int) -> Unit) {
+fun ListContent(tasks: RequestState<List<ToDoTask>>, navigateToTaskScreen: (taskId: Int) -> Unit) {
+    if(tasks is RequestState.Success){
+        if(tasks.data.isEmpty()){
+            EmptyContent()
+        }else{
+            DisplayTasks(tasks = tasks.data, navigateToTaskScreen = navigateToTaskScreen)
+        }
+    }else if(tasks is RequestState.Error){
+
+    }else if(tasks is RequestState.Loading){
+        CircularProgressIndicator()
+    }
+}
+
+@Composable
+fun DisplayTasks(tasks: List<ToDoTask>, navigateToTaskScreen: (taskId: Int) -> Unit){
     LazyColumn{
         items(count = tasks.size, itemContent = {
             TaskItem(todoTask = tasks[it], navigateToTaskScreen = navigateToTaskScreen)

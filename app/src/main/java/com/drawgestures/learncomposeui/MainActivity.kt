@@ -19,16 +19,18 @@ import com.drawgestures.learncomposeui.ui.viewmodels.SharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
-    private lateinit var navController : NavHostController
-    private val sharedViewModel : SharedViewModel by viewModel()
+    private lateinit var navController: NavHostController
+    private val sharedViewModel: SharedViewModel by viewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             LearnComposeUITheme {
                 // A surface container using the 'background' color from the theme
                 navController = rememberNavController()
-                SetupNavigation(sharedViewModel = sharedViewModel, navHostController = navController)
-
+                SetupNavigation(
+                    sharedViewModel = sharedViewModel,
+                    navHostController = navController
+                )
             }
         }
     }
